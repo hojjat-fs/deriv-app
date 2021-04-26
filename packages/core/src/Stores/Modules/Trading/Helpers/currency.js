@@ -2,6 +2,8 @@ import { isCryptocurrency, getCurrencyDisplayCode } from '@deriv/shared';
 import { localize } from '@deriv/translations';
 
 export const buildCurrenciesList = payout_currencies => {
+    if (!payout_currencies) return null;
+
     const fiat = [];
     const crypto = [];
 
