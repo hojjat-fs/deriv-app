@@ -1,6 +1,6 @@
 .dc-modal__container_welcome {
     overflow: visible;
-    background-color: #f5f7fa;
+    background-color: $color-grey-12;
 
     @include mobile {
         overflow: auto;
@@ -26,18 +26,23 @@
 
     &-item {
         width: 100%;
-        max-width: 588px;
-        height: 86px;
+        max-width: 58.8rem;
+        height: 8.6rem;
         display: flex;
         flex-direction: row;
-        border-radius: 8px;
-        margin-bottom: 16px;
+        border-radius: 0.8rem;
+        margin-bottom: 1.6rem;
         border: 2px solid transparent;
         position: relative;
-        background-color: #fff;
+        background-color: var(--general-main-1);
+        cursor: pointer;
 
         &:hover {
-            border-color: #85acb0;
+            border-color: var(--border-hover);
+        }
+
+        &:active {
+            border-color: var(--border-active);
         }
 
         &__icon {

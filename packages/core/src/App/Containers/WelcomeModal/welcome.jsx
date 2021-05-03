@@ -51,6 +51,8 @@ const Welcome = ({ switchPlatform, toggleAccountTypesModal, toggleWelcomeModal }
 
 Welcome.propTypes = {
     switchPlatform: PropTypes.func,
+    toggleAccountTypesModal: PropTypes.func,
+    toggleWelcomeModal: PropTypes.func,
 };
 
 export default Welcome;

@@ -20,9 +20,10 @@ const WelcomeItem = ({ title, description, onClick, icon }) => (
 );
 
 WelcomeItem.propTypes = {
-    title: PropTypes.string,
     description: PropTypes.string,
+    icon: PropTypes.element,
     onClick: PropTypes.func,
+    title: PropTypes.string,
 };
 
 export default WelcomeItem;
