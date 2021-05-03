@@ -1,0 +1,66 @@
+.dc-modal__container_account-types {
+    background-color: #f5f7fa;
+}
+
+.account-types {
+    max-width: 58.8rem;
+    margin: 0 auto;
+
+    &__header {
+        display: flex;
+        margin-bottom: 2.4rem;
+        margin-top: 4rem;
+
+        &-back {
+            background: initial;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        &-title {
+            flex: 1;
+        }
+    }
+
+    &__body {
+        display: flex;
+    }
+
+    &__box {
+        background-color: #fff;
+        border-radius: 0.4rem;
+        border: 1px solid transparent;
+        display: flex;
+        flex-direction: column;
+        padding: 2.4rem;
+        align-items: center;
+        flex: 1;
+
+        &:hover {
+            border-color: #85acb0;
+        }
+
+        &:first-child {
+            margin-right: 1.2rem;
+        }
+
+        &:last-child {
+            margin-left: 1.2rem;
+        }
+
+        &-icon {
+            margin-bottom: 1.6rem;
+        }
+
+        &-description {
+            margin-top: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+    }
+
+    &__footer {
+        margin-top: 2.4rem;
+    }
+}

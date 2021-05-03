@@ -91,6 +91,7 @@ export default class UIStore extends BaseStore {
 
     // account types modal
     @observable is_account_types_modal_visible = false;
+    @observable account_types_onboarding_item = '';
 
     // Welcome modal
     @observable is_welcome_modal_visible = false;
@@ -711,8 +712,9 @@ export default class UIStore extends BaseStore {
     }
 
     @action.bound
-    toggleAccountTypesModal(is_visible = !this.is_account_types_modal_visible) {
+    toggleAccountTypesModal(is_visible = !this.is_account_types_modal_visible, account_types_onboarding_item) {
         this.is_account_types_modal_visible = is_visible;
+        this.account_types_onboarding_item = account_types_onboarding_item;
     }
 
     @action.bound

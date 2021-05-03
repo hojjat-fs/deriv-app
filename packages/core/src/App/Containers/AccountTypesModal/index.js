@@ -1,1 +1,1 @@
-export default from './account-types-modal.jsx';
+export default from './onboarding-account-types-modal.jsx';
