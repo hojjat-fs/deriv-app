@@ -26,7 +26,7 @@ const WelcomeModal = React.lazy(() => import(/* webpackChunkName: "welcome-modal
 
 const AppModals = ({
     is_account_needed_modal_on,
-    is_account_types_modal_visible,
+    is_onboarding_account_types_modal_visible,
     is_welcome_modal_visible,
     is_reality_check_visible,
     is_set_residence_modal_visible,
@@ -54,7 +54,7 @@ const AppModals = ({
             break;
     }
 
-    if (is_account_types_modal_visible) {
+    if (is_onboarding_account_types_modal_visible) {
         ComponentToLoad = <AccountTypesModal />;
     }
 
@@ -79,7 +79,7 @@ const AppModals = ({
 };
 
 export default connect(({ client, ui }) => ({
-    is_account_types_modal_visible: ui.is_account_types_modal_visible,
+    is_onboarding_account_types_modal_visible: ui.is_onboarding_account_types_modal_visible,
     is_welcome_modal_visible: ui.is_welcome_modal_visible,
     is_account_needed_modal_on: ui.is_account_needed_modal_on,
     is_set_residence_modal_visible: ui.is_set_residence_modal_visible,

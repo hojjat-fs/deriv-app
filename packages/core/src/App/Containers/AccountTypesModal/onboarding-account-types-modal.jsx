@@ -11,56 +11,47 @@ import 'Sass/app/modules/account-types-onboarding.scss';
 import AccountCard from './onboarding-account-card.jsx';
 
 const AccountTypesModal = ({
-    account_types_onboarding_item,
     history,
-    is_account_types_modal_visible,
-    toggleAccountTypesModal,
+    is_onboarding_account_types_modal_visible,
+    toggleOnboardingAccountTypesModal,
     toggleWelcomeModal,
+    setOnboardingStatus,
+    standpoint,
+    openRealAccountSignup,
+    is_uk,
 }) => {
-    const closeModal = () => {
-        toggleAccountTypesModal(false);
-    };
-
     const handleBackButton = () => {
-        toggleAccountTypesModal(false, '');
+        setOnboardingStatus({
+            trade_type: null,
+        });
+        toggleOnboardingAccountTypesModal(false);
         toggleWelcomeModal(true);
     };
 
-    const handleSyntheticsClick = () => {
+    const handleClick = account_type => {
+        setOnboardingStatus({
+            account_type,
+        });
         history.push(routes.trade);
-        if (account_types_onboarding_item === 'multipliers') {
-            // @TODO: After redirect :
-            // 1) default asset: volatility 75 index
-            // 2) trade type: multipliers
-        } else if (account_types_onboarding_item === 'digital-options') {
-            // @TODO: After redirect :
-            // 1) in trade container: default asset: AUD/JPY
-            // 2) in trade container: trade type: multipliers
-        }
-        closeModal();
+        toggleOnboardingAccountTypesModal(false);
     };
 
-    const handleFinancialClick = () => {
-        history.push(routes.trade);
-        if (account_types_onboarding_item === 'multipliers') {
-            // @TODO: After redirect :
-            // 1) default asset: volatility 75 index
-            // 2) trade type: multipliers
-        } else if (account_types_onboarding_item === 'digital-options') {
-            history.push(routes.trade);
-            // @TODO: After redirect :
-            // 1) in trade container: default asset: AUD/JPY
-            // 2) in trade container: trade type: rise/fall
+    const handleClickSynthetic = () => {
+        handleClick('synthetics');
+
+        if (is_uk) {
+            openRealAccountSignup(standpoint.gaming_company);
         }
-        closeModal();
+    };
+    const handleClickFinancial = () => {
+        handleClick('financial');
     };
 
     return (
         <Modal
             width='904px'
             className='account-types'
-            is_open={is_account_types_modal_visible}
-            toggleModal={closeModal}
+            is_open={is_onboarding_account_types_modal_visible}
             has_close_icon={false}
         >
             <ThemedScrollbars is_bypassed={isMobile()} autohide={false} height={'calc(100vh - 84px'}>
@@ -70,7 +61,13 @@ const AccountTypesModal = ({
                             <button className='account-types__header-back' onClick={handleBackButton}>
                                 <Icon icon='IcArrowLeft' />
                             </button>
-                            <Text as='h2' size='m' weight='bold' align='center' className='account-types__header-title'>
+                            <Text
+                                as='h2'
+                                size={isMobile() ? 's' : 'm'}
+                                weight='bold'
+                                align='center'
+                                className='account-types__header-title'
+                            >
                                 {localize('Please choose your account')}
                             </Text>
                         </div>
@@ -80,15 +77,15 @@ const AccountTypesModal = ({
                                 description={localize(
                                     'Get trading with Synthetics - the simulated market that’s always open'
                                 )}
-                                button_text={localize('Add demo account')}
+                                button_text={is_uk ? localize('Add real account') : localize('Add demo account')}
                                 icon={<SyntheticsIcon className='account-types__box-icon' />}
-                                buttonOnClick={handleSyntheticsClick}
+                                buttonOnClick={handleClickSynthetic}
                             />
                             <AccountCard
                                 title={localize('Financial')}
                                 description={localize('Get trading forex, commodities, and cryptocurrencies.')}
                                 button_text={localize('Add demo account')}
-                                buttonOnClick={handleFinancialClick}
+                                buttonOnClick={handleClickFinancial}
                                 icon={<FinancialIcon className='account-types__box-icon' />}
                             />
                         </div>
@@ -103,18 +100,21 @@ const AccountTypesModal = ({
 };
 
 AccountTypesModal.propTypes = {
-    account_types_onboarding_item: PropTypes.string,
     history: PropTypes.any,
-    is_account_types_modal_visible: PropTypes.bool,
-    toggleAccountTypesModal: PropTypes.func,
+    is_onboarding_account_types_modal_visible: PropTypes.bool,
+    toggleOnboardingAccountTypesModal: PropTypes.func,
     toggleWelcomeModal: PropTypes.func,
+    setOnboardingStatus: PropTypes.func,
 };
 
 export default withRouter(
-    connect(({ ui }) => ({
-        account_types_onboarding_item: ui.account_types_onboarding_item,
-        is_account_types_modal_visible: ui.is_account_types_modal_visible,
-        toggleAccountTypesModal: ui.toggleAccountTypesModal,
+    connect(({ ui, client }) => ({
+        is_onboarding_account_types_modal_visible: ui.is_onboarding_account_types_modal_visible,
+        toggleOnboardingAccountTypesModal: ui.toggleOnboardingAccountTypesModal,
         toggleWelcomeModal: ui.toggleWelcomeModal,
+        setOnboardingStatus: ui.setOnboardingStatus,
+        is_uk: client.is_uk,
+        openRealAccountSignup: ui.openRealAccountSignup,
+        standpoint: client.standpoint,
     }))(AccountTypesModal)
 );

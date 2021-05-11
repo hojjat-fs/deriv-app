@@ -4,7 +4,18 @@ import { Modal, ThemedScrollbars } from '@deriv/components';
 import { connect } from 'Stores/connect';
 import Welcome from './welcome.jsx';
 
-const WelcomeModal = ({ toggleWelcomeModal, history, toggleAccountTypesModal }) => {
+const WelcomeModal = props => {
+    const {
+        toggleWelcomeModal,
+        history,
+        toggleOnboardingAccountTypesModal,
+        standpoint,
+        setOnboardingStatus,
+        is_uk,
+        openRealAccountSignup,
+        is_eu_country,
+        is_synthetics_unavailable,
+    } = props;
     const switchPlatform = React.useCallback(
         route => {
             toggleWelcomeModal({ is_visible: false, should_persist: true });
@@ -18,8 +29,15 @@ const WelcomeModal = ({ toggleWelcomeModal, history, toggleAccountTypesModal }) 
             <ThemedScrollbars height={700}>
                 <Welcome
                     switchPlatform={switchPlatform}
-                    toggleAccountTypesModal={toggleAccountTypesModal}
+                    toggleOnboardingAccountTypesModal={toggleOnboardingAccountTypesModal}
                     toggleWelcomeModal={toggleWelcomeModal}
+                    standpoint={standpoint}
+                    history={history}
+                    setOnboardingStatus={setOnboardingStatus}
+                    is_uk={is_uk}
+                    openRealAccountSignup={openRealAccountSignup}
+                    is_eu_country={is_eu_country}
+                    is_synthetics_unavailable={is_synthetics_unavailable}
                 />
             </ThemedScrollbars>
         </Modal>
@@ -27,8 +45,14 @@ const WelcomeModal = ({ toggleWelcomeModal, history, toggleAccountTypesModal }) 
 };
 
 export default withRouter(
-    connect(({ ui }) => ({
+    connect(({ ui, client }) => ({
         toggleWelcomeModal: ui.toggleWelcomeModal,
-        toggleAccountTypesModal: ui.toggleAccountTypesModal,
+        toggleOnboardingAccountTypesModal: ui.toggleOnboardingAccountTypesModal,
+        standpoint: client.standpoint,
+        setOnboardingStatus: ui.setOnboardingStatus,
+        is_uk: client.is_uk,
+        is_synthetics_unavailable: client.is_synthetics_unavailable,
+        is_eu_country: client.is_eu_country,
+        openRealAccountSignup: ui.openRealAccountSignup,
     }))(WelcomeModal)
 );

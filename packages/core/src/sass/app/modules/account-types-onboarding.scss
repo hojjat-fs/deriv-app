@@ -26,6 +26,10 @@
 
     &__body {
         display: flex;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+        }
     }
 
     &__box {
@@ -46,12 +50,19 @@
             border-color: var(--border-active);
         }
 
-        &:first-child {
-            margin-right: 1.2rem;
+        @media (max-width: 768px) {
+            &:first-child {
+                margin-bottom: 1.2rem;
+            }
         }
 
-        &:last-child {
-            margin-left: 1.2rem;
+        @media (min-width: 768px) {
+            &:first-child {
+                margin-right: 1.2rem;
+            }
+            &:last-child {
+                margin-left: 1.2rem;
+            }
         }
 
         &-icon {
